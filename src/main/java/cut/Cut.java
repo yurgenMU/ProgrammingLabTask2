@@ -11,11 +11,12 @@ public class Cut {
                 String[] tokens = str.split(" ");
                 if(tokens.length == 3){
                     String inp = sc.nextLine();
-
-                    String outp;
-                    String flag;
-//                    if (tokens[1] == "-c"){
-//                        System.out.println(inp.substring());
+                    if (tokens[1].equals("-c")){
+                        char[] symb = inp.toCharArray();
+                        if (tokens[2].charAt(0) == ('-')){
+                            String answ = symb.
+                        }
+                    }
                     }
                 }
             }

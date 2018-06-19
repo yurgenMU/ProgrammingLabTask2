@@ -1,45 +1,42 @@
 package cut;
 
-import java.util.Arrays;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Cut {
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
-        CutClasses flags = new CutClasses();
-        String input = scan.nextLine();
-        String[] tokens = input.split(" ");
-        String range = tokens[tokens.length - 1];
-        String[] numbersOfRange = range.split("-");
-        Character firstOfChar = range.charAt(0);
-        Character lastOfChar = range.charAt(range.length() - 1);
-        String n = "";
-        String k = "";
-        if (range.contains("-")) {
-            if ((firstOfChar != '-') && (lastOfChar != '-')) {
-                n = numbersOfRange[0];
-                k = numbersOfRange[1];
-            } else {
-                if (firstOfChar != '-') {
-                    n = numbersOfRange[0];
+
+        CutMethods cm = new CutMethods();
+        while (true) {
+            String input = scan.nextLine();
+            if (cm.isInputValid(input)) {
+                String inputText;
+                String outputText = "";
+                Map<String, String> parameters = cm.getParameters(input);
+                if ("".equals(parameters.get("inputFile"))) {
+                    System.out.println("Enter the text");
+                    inputText = scan.nextLine();
                 } else {
-                    if (lastOfChar != '-') {
-                        k = numbersOfRange[1];
-                    }
+                    inputText = cm.readFromFile(parameters.get("inputFile"));
                 }
+                String n = parameters.get("n");
+                String k = parameters.get("k");
+                if ("-c".equalsIgnoreCase(parameters.get("flag"))) {
+                    outputText = cm.cutFlagC(inputText, n, k);
+                }
+                if ("-w".equalsIgnoreCase(parameters.get("flag"))) {
+                    outputText = cm.cutFlagW(inputText, n, k);
+                }
+                if ("".equals(parameters.get("outputFile"))) {
+                    System.out.println(outputText);
+                } else {
+                    cm.writeIntoFile(outputText, parameters.get("outputFile"));
+                }
+            } else {
+                System.out.println("Input is invalid");
             }
+
         }
-
-
-
-//            switch (scan) {
-//                case "-c": {
-//                }
-//                case "-w": {
-//                }
-//                case "-o": {
-//            }
     }
 }
-//}
-//}
